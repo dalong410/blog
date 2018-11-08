@@ -1,6 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+$hook['display_override'][] = array(
+    'class'    => 'Myyield',
+    'function' => 'doYield',
+    'filename' => 'Myyield.php',
+    'filepath' => 'hooks'
+);
 /*
 | -------------------------------------------------------------------------
 | Hooks
