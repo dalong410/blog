@@ -1,64 +1,35 @@
-<div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        Man must explore, and this is exploration at its greatest
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Problems look mighty small from 150 miles up
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by
-                    <a href="#">Start Bootstrap</a>
-                    on September 24, 2018</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-                    </h2>
-                </a>
-                <p class="post-meta">Posted by
-                    <a href="#">Start Bootstrap</a>
-                    on September 18, 2018</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        Science has not yet mastered prophecy
-                    </h2>
-                    <h3 class="post-subtitle">
-                        We predict too much for the next year and yet far too little for the next ten.
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by
-                    <a href="#">Start Bootstrap</a>
-                    on August 24, 2018</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        Failure is not an option
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by
-                    <a href="#">Start Bootstrap</a>
-                    on July 8, 2018</p>
-            </div>
-            <hr>
-            <!-- Pager -->
-            <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+
+<div id="wrapper">
+<!---https://bootsnipp.com/snippets/WaeDX-->
+    <section class="details-card">
+        <div class="container">
+            <div class="section-title text-center">
+                <h4>BEST TOP</h4>
+                <p class="post-meta" style="font-size: 28px;">BEST TOP : Most read 1 to 3</p>
+            </div><!-- end section-title -->
+            <div class="row">
+                <?php
+                $i = 1;
+                foreach ($best_list as $b_lt) {
+                ?>
+                <div class="col-md-4">
+                    <div class="card-content">
+                        <div class="card-img">
+                            <img src="https://placeimg.com/380/230/nature" alt="">
+                            <span><h4>TOP <?=$i;?></h4></span>
+                        </div>
+                        <div class="card-desc">
+                            <h3><?=$b_lt->subject;?></h3>
+                            <p><?=$b_lt->content;?></p>
+                            <a href="/saebom/board/view/<?=$b_lt->idx;?>"  class="btn-card">Read</a>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                    $i++;
+                }
+                ?>
             </div>
         </div>
-    </div>
-</div>
-
-<hr>
+    </section>
+</div><!-- end wrapper -->

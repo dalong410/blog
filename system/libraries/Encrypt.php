@@ -55,7 +55,7 @@ class CI_Encrypt {
 	 *
 	 * @var string
 	 */
-	public $encryption_key		= '';
+	public $encryption_key		= 'asdf';
 
 	/**
 	 * Type of hash operation

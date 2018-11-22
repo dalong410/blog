@@ -124,7 +124,7 @@ class Basic_model extends CI_Model {
     }
 
     function get_site_gnb(){
-        $this->db->select('menu_name');
+        $this->db->select('menu_name, route');
         $this->db->from('GNB_MENU');
         $this->db->order_by("order", "asc");
         $result = $this->db->get()->result_array();
@@ -139,6 +139,12 @@ class Basic_model extends CI_Model {
         //echo $this->db->last_query();
         return $result;
 
+    }
+
+
+    function get_member_basic_info($user_id){
+        $this->db->where($user_id, null, false);
+        return $result;
     }
 
 }

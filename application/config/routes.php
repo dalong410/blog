@@ -53,4 +53,10 @@ $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['ABOUT'] = 'main/ABOUT'; //인트로
+$route['ABOUT'] = 'main/ABOUT';
+$route['login'] = 'user/login';
+$route['board'] = 'board/list';
+$route['board/view/(:any)'] = 'board/view/$1';
+$route['board/write/(:any)'] = 'board/write/$1';
+$route['board/list/(:any)'] = "board/list/$1";
+$route['board/list/(:any)/(:any)'] = "board/list/$1/$1";

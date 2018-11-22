@@ -6,26 +6,34 @@
                 <ul class="list-inline text-center">
                     <li class="list-inline-item">
                         <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
+                          <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                          </span>
                         </a>
                     </li>
                     <li class="list-inline-item">
                         <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                  </span>
+                          <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                          </span>
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
+                        <a href="https://github.com/dalong410/portfolio">
+                          <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="<?=$footer_url?>">
+                          <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-gratipay fa-stack-1x fa-inverse"></i>
+                          </span>
                         </a>
                     </li>
                 </ul>

@@ -2,25 +2,26 @@
     #map_wrapper {height: 500px;}
     #map{width: 100%;height: 500px;}
 </style>
-<div class="row">
-    <div class="col-lg-12 col-md-10 mx-auto">
-        <h2 class="post-title">
-            ABOUT SEABOM'S BLOG
-        </h2>
-        <div class="post-subtitle">
-            <p>안녕<br>안녕<br>안녕</p>
+<section class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-10 mx-auto">
+            <h2 class="post-title">
+                ABOUT SEABOM'S BLOG
+            </h2>
+            <div class="post-subtitle">
+                <p>안녕<br>안녕<br>안녕</p>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-10 mx-auto">
+            <h2 class="post-title">
+                WHERE I HAVE BEEN!!
+            </h2>
+            <div id="map_wrapper" class="mt40">
+                <div id="map" class="mapping"></div>
+            </div>
         </div>
     </div>
-    <div class="col-lg-12 col-md-10 mx-auto">
-        <h2 class="post-title">
-            WHERE I HAVE BEEN!!
-        </h2>
-        <div id="map_wrapper" class="mt40">
-            <div id="map" class="mapping"></div>
-        </div>
-    </div>
-</div>
-
+</section>
 <script>
     jQuery(function($) {
     // Asynchronously Load the map API
