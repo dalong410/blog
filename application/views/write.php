@@ -1,14 +1,14 @@
-<script src="/saebom/editor/ckeditor/ckeditor.js"></script>
-<link rel="stylesheet" href="/saebom/editor/ckeditor/samples/css/samples.css">
-<link rel="stylesheet" href="/saebom/editor/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 <section class="container">
     <div class="row">
-        <div class="col-md-12 col-md-offset-3">
+        <div class="col-md-12">
             <h2>New POST</h2>
             <form role="form" method="post" id="reused_form">
                 <div class="row">
                     <div class="col-sm-12 form-group">
-                        <label for="name"> Category:</label>1
+                        <label for="name"> Category:</label>
                         <select class="selectpicker" id="category" name="category" >
                             <?php for ($i=1; $i < count($gnb_list); $i++) { ?>
                                 <option value="<?=$gnb_list[$i][menu_name]?>"><?=$gnb_list[$i][menu_name]?></option>
@@ -26,22 +26,28 @@
                 <div class="row">
                     <div class="col-sm-12 form-group">
                         <label for="name"> Content:</label>
-                        <textarea name="comment" rows="15" style="width:100%;height:250;"></textarea>
-                        <div class="adjoined-bottom">
-                            <div class="grid-container">
-                                <div>
-                                    <div id="editor">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="summernote"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 form-group">
-                        <label for="name"> Subject:</label>
-                        <input type="text" class="form-control" id="subject" name="subject" maxlength="50">
+                        <label for="name"> Thumnail:</label>
+                        <!-- image-preview-filename input [CUT FROM HERE]-->
+                        <div class="input-group image-preview">
+                            <input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+                            <span class="input-group-btn">
+                    <!-- image-preview-clear button -->
+                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                        <span class="glyphicon glyphicon-remove"></span> Clear
+                    </button>
+                                <!-- image-preview-input -->
+                    <div class="btn btn-default image-preview-input">
+                        <span class="glyphicon glyphicon-folder-open"></span>
+                        <span class="image-preview-input-title">Browse</span>
+                        <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/> <!-- rename it -->
+                    </div>
+                </span>
+                        </div><!-- /input-group image-preview [TO HERE]-->
                     </div>
                 </div>
                 <div class="row">
@@ -53,23 +59,67 @@
         </div>
     </div>
 </section>
-<script type="text/javascript">
-    CKEDITOR.replace('comment',
-        {
-            startupFocus : false,  // 자동 focus 사용할때는  true
-            //C:\Users\admin\Desktop\work\saebom\editor\ckeditor\config.js
-            customConfig : '/saebom/editor/ckeditor/config.js', //커스텀설정js파일위치
-            //filebrowserUploadUrl: '/saebom/editor/ckeditor/upload.php?type=Files',
-            filebrowserImageUploadUrl: '/saebom/editor/upload.php?type=Images',
-            toolbar :
-                [
-                    ['ajaxsave'],
-                    ['Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ],
-                    ['Cut','Copy','Paste','PasteText'],
-                    ['Undo','Redo','-','RemoveFormat'],
-                    ['TextColor','BGColor'],
-                    ['Maximize', 'Image']
-                ],
-        }
-    );
+<script>
+    $('#summernote').summernote({
+        tabsize: 2,
+        height: 600
+    });
+    $(document).on('click', '#close-preview', function(){
+        $('.image-preview').popover('hide');
+        // Hover befor close the preview
+        $('.image-preview').hover(
+            function () {
+                $('.image-preview').popover('show');
+            },
+            function () {
+                $('.image-preview').popover('hide');
+            }
+        );
+    });
+
+    $(function() {
+        // Create the close button
+        var closebtn = $('<button/>', {
+            type:"button",
+            text: 'x',
+            id: 'close-preview',
+            style: 'font-size: initial;',
+        });
+        closebtn.attr("class","close pull-right");
+        // Set the popover default content
+        $('.image-preview').popover({
+            trigger:'manual',
+            html:true,
+            title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+            content: "There's no image",
+            placement:'bottom'
+        });
+        // Clear event
+        $('.image-preview-clear').click(function(){
+            $('.image-preview').attr("data-content","").popover('hide');
+            $('.image-preview-filename').val("");
+            $('.image-preview-clear').hide();
+            $('.image-preview-input input:file').val("");
+            $(".image-preview-input-title").text("Browse");
+        });
+        // Create the preview image
+        $(".image-preview-input input:file").change(function (){
+            var img = $('<img/>', {
+                id: 'dynamic',
+                width:250,
+                height:200
+            });
+            var file = this.files[0];
+            var reader = new FileReader();
+            // Set preview image into the popover data-content
+            reader.onload = function (e) {
+                $(".image-preview-input-title").text("Change");
+                $(".image-preview-clear").show();
+                $(".image-preview-filename").val(file.name);
+                img.attr('src', e.target.result);
+                $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+            }
+            reader.readAsDataURL(file);
+        });
+    });
 </script>
