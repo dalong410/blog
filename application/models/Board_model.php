@@ -42,13 +42,30 @@ class Board_model extends CI_Model
         return $result;
     }
 
-    function insert($subject, $content)
+    function board_insert($tmp_data)
     {
         $data=array(
-            'subject'=>$subject,
-            'content'=>$content
+            'subject'=>$tmp_data['subject'],
+            'content'=>$tmp_data['content'],
+            'wrt_datetime'=>date('Y-m-d H:i:s'),
+            'category' => $tmp_data['category']
         );
         $this->db->insert('board',$data);
+        $wr_id = $this->db->insert_id();
+        if($tmp_data['file_name']){
+            $data=array(
+                'board_idx'=>$wr_id,
+                'file_name'=>$tmp_data['file_name'],
+                'file_path'=>$tmp_data['file_path'],
+                'file_size'=>$tmp_data['file_size'],
+                'image_width'=>$tmp_data['image_width'],
+                'image_height'=>$tmp_data['image_height'],
+                'image_type'=>$tmp_data['image_type'],
+                'image_size_str' => $tmp_data['image_size_str']
+            );
+            $this->db->insert('board_img',$data);
+        }
+        return $wr_id;
     }
 
     function view($idx)

@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-    color: #212529;
+    color: #212529 !important;
     -webkit-transition: all .2s;
     transition: all .2s
 }
@@ -146,7 +146,7 @@ img::-moz-selection {
 
     #mainNav.is-fixed {
         position: fixed;
-        top: -67px;
+        top: -1px;
         -webkit-transition: -webkit-transform .2s;
         transition: -webkit-transform .2s;
         transition: transform .2s;

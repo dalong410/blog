@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>New POST</h2>
-            <form role="form" method="post" id="reused_form">
+            <form role="form" enctype="multipart/form-data" method="post" id="reused_form" onsubmit="postForm()" action="write_update">
                 <div class="row">
                     <div class="col-sm-12 form-group">
                         <label for="name"> Category:</label>
@@ -14,7 +14,6 @@
                                 <option value="<?=$gnb_list[$i][menu_name]?>"><?=$gnb_list[$i][menu_name]?></option>
                             <?php  }  ?>
                         </select>
-
                     </div>
                 </div>
                 <div class="row">
@@ -26,6 +25,7 @@
                 <div class="row">
                     <div class="col-sm-12 form-group">
                         <label for="name"> Content:</label>
+                        <textarea name="content" style="display: none;"></textarea>
                         <div id="summernote"></div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="btn btn-default image-preview-input">
                         <span class="glyphicon glyphicon-folder-open"></span>
                         <span class="image-preview-input-title">Browse</span>
-                        <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/> <!-- rename it -->
+                        <input type="file" accept="image/png, image/jpeg, image/gif" name="userfile"/> <!-- rename it -->
                     </div>
                 </span>
                         </div><!-- /input-group image-preview [TO HERE]-->
@@ -62,7 +62,14 @@
 <script>
     $('#summernote').summernote({
         tabsize: 2,
-        height: 600
+        height: 600,
+        callbacks: {
+            onImageUpload: function(files, editor, welEditable) {
+                for (var i = files.length - 1; i >= 0; i--) {
+                    sendFile(files[i], this);
+                }
+            }
+        }
     });
     $(document).on('click', '#close-preview', function(){
         $('.image-preview').popover('hide');
@@ -76,6 +83,52 @@
             }
         );
     });
+    function postForm() {
+        $('textarea[name="content"]').val($('#summernote').summernote('code'));
+    }
+    function sendFile2(file, el) {
+        var form_data = new FormData();
+        form_data.append('file', file);
+        $.ajax({
+            data: form_data,
+            type: "POST",
+            url: '/saebom/board/upload_img',
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function(url) {
+                $(el).summernote('editor.insertImage', url.save_url);
+                $('#imageBoard > ul').append('<li><img src="'+url.save_url+'" width="480" height="auto"/></li>');
+            }
+        });
+    }
+
+
+    function sendFile(file,editor,welEditable) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            url: "/saebom/board/upload_img", // image 저장 경로
+            data: data,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            type: 'POST',
+            success: function(data){
+                var obj = JSON.parse(data);
+                if (obj.success) {
+                    $(editor).summernote('editor.insertImage', obj.save_url);
+                } else {
+                    alert(obj.error);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus+" "+errorThrown);
+            }
+        });
+    }
 
     $(function() {
         // Create the close button

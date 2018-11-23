@@ -17,8 +17,10 @@ class MY_Controller extends CI_Controller {
         }
 
         if($username){
+            $data['is_admin'] = 1;
             $data['footer_url'] = "/saebom/user/admin_page";
         }else{
+            $data['is_admin'] = 0;
             $data['footer_url'] = "/saebom/login";
         }
         $this->load->vars($data);
