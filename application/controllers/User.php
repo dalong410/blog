@@ -1,5 +1,5 @@
 <?php
-session_start(); //we need to start session in order to access it through CI
+//session_start(); //we need to start session in order to access it through CI
 Class User extends MY_Controller {
 
     public function __construct() {
@@ -10,7 +10,7 @@ Class User extends MY_Controller {
         // Load form validation library
         $this->load->library('form_validation');
         // Load session library
-        $this->load->library('session');
+       // $this->load->library();
         // Load database
         $this->load->model('user_model');
     }
@@ -20,7 +20,11 @@ Class User extends MY_Controller {
     }
     // Show login page
     public function login() {
-        $this->load->view('login');
+        if (isset($this->session->userdata['logged_in'])) {
+            $this->load->view('admin_page');
+        }else{
+            $this->load->view('login');
+        }
     }
 
 // Check for user login process
@@ -30,11 +34,12 @@ Class User extends MY_Controller {
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
-            if(isset($this->session->userdata['logged_in'])){
+            /*if(isset($this->session->userdata['logged_in'])){
                 $this->load->view('admin_page');
             }else{
                 $this->load->view('login');
-            }
+            }*/
+            $this->load->view('login');
         } else {
             $data = array(
                 'username' => $this->input->post('username'),
@@ -68,7 +73,8 @@ Class User extends MY_Controller {
     public function logout() {
         // Removing session data
         $sess_array = array(
-            'username' => ''
+            'username' => '',
+            
         );
         $this->session->unset_userdata('logged_in', $sess_array);
         $data['message_display'] = 'Successfully Logout';

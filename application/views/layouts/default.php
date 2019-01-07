@@ -45,7 +45,8 @@
         <?php include VIEWPATH . "layouts/header.php"; ?>
         <?php if($is_admin == 1){
             include VIEWPATH . "layouts/admin_top.php";
-        }?>
+        }
+        ?>
         <!-- //header -->
         <!-- main_container -->
         {yield}

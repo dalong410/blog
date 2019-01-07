@@ -11,16 +11,22 @@
                 <?php
                 $i = 1;
                 foreach ($best_list as $b_lt) {
+                    $img_src=$b_lt->file_path.$b_lt->file_name;
                 ?>
                 <div class="col-md-4">
                     <div class="card-content">
                         <div class="card-img">
-                            <img src="https://placeimg.com/380/230/nature" alt="">
+                            <img src="<?=$img_src?>" alt="">
                             <span><h4>TOP <?=$i;?></h4></span>
                         </div>
                         <div class="card-desc">
                             <h3><?=$b_lt->subject;?></h3>
-                            <p><?=$b_lt->content;?></p>
+                            <p>
+                                <?php
+                                $content = strip_tags ($b_lt->content);
+                                echo $content;
+                                ?>
+                            </p>
                             <a href="/saebom/board/view/<?=$b_lt->idx;?>"  class="btn-card">Read</a>
                         </div>
                     </div>

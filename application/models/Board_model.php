@@ -26,12 +26,13 @@ class Board_model extends CI_Model
 
 
     function best_lists($kind='', $offset='0', $limit='3', $subject='', $content='') {
-        $this->db->order_by('hits desc');
-        $this->db->like('subject', $subject);
-        $this->db->like('content', $content);
-        $query=$this->db->get('board',$limit,$offset);
 
-        $result=$query->result();
+        $this->db->from('board a');
+        $this->db->join('board_img b', ' a.idx = b.board_idx','left');
+        $this->db->order_by('hits desc');
+        $this->db->limit($limit);
+        $result=$this->db->get()->result();
+//        echo $this->db->last_query();
         return $result;
     }
 
