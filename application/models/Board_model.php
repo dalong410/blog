@@ -13,12 +13,13 @@ class Board_model extends CI_Model
         $this->db->order_by('wrt_datetime desc');
         $this->db->like('subject', $subject);
         $this->db->like('content', $content);
-        $query=$this->db->get('board',$limit,$offset);
+        $this->db->from('board a',$limit,$offset);
+        $this->db->join('board_img b', ' a.idx = b.board_idx','left');
 
         if ($kind == 'num_rows') {
-            $result=$query->num_rows();
+            $result=$this->db->get()->num_rows();
         } else {
-            $result=$query->result();
+            $result=$this->db->get()->result();
         }
         //echo $this->db->last_query();
         return $result;
@@ -51,13 +52,16 @@ class Board_model extends CI_Model
             'wrt_datetime'=>date('Y-m-d H:i:s'),
             'category' => $tmp_data['category']
         );
+        print_r($tmp_data);
+        $tmp_path = explode('/www', $tmp_data['file_path']);
+        $file_path = $tmp_path[1];
         $this->db->insert('board',$data);
         $wr_id = $this->db->insert_id();
         if($tmp_data['file_name']){
             $data=array(
                 'board_idx'=>$wr_id,
                 'file_name'=>$tmp_data['file_name'],
-                'file_path'=>$tmp_data['file_path'],
+                'file_path'=>$file_path,
                 'file_size'=>$tmp_data['file_size'],
                 'image_width'=>$tmp_data['image_width'],
                 'image_height'=>$tmp_data['image_height'],

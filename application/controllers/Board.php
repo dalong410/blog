@@ -114,9 +114,9 @@ class Board extends MY_Controller {
         # 파일 업로드
         $config['upload_path']          = $mydir;
         $config['allowed_types']        = 'gif|jpg|png';
-        $config['max_size']             = 2048;
-        $config['max_width']            = 0;
-        $config['max_height']           = 0;
+        $config['max_size']             = 50000;
+        $config['max_width']            = 50000;
+        $config['max_height']           = 50000;
         $config['encrypt_name']         = true;
         $log_field = array();
 
@@ -173,9 +173,9 @@ class Board extends MY_Controller {
 
         $config['upload_path']   = './data/'.date("Ymd");
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size']      = 10000;
-        $config['max_width']     = 1024;
-        $config['max_height']    = 768;
+        $config['max_size']      = 50000;
+        $config['max_width']     = 50000;
+        $config['max_height']    = 50000;
 
         @mkdir("$config[upload_path]", 0777);
         @chmod("$config[upload_path]", 0777);

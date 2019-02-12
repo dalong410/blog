@@ -538,3 +538,9 @@ a.btn-card {
 .image-preview-input-title {
     margin-left:2px;
 }
+
+.wh-110x{ height: 110px; width: 110px!important; }
+
+.abs-tlr{ position: absolute; top: 0; left: 0; right: 0; z-index: 1; }
+.ml-120{ margin-left: 120px!important; }
+.pos-relative{ position: relative; z-index: 1; }

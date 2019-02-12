@@ -27,6 +27,16 @@
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('/saebom/img/home-bg.jpg')">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134315263-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-134315263-1');
+    </script>
+
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
