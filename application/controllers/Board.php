@@ -16,6 +16,7 @@ class Board extends MY_Controller {
     public function view($idx)
     {
         $data['view']=$this->board_model->view($idx);
+        $data['comment']=$this->board_model->comment($idx);
         $this->load->view($page='view',$data);
     }
 
@@ -217,5 +218,15 @@ class Board extends MY_Controller {
         }
 
 
+    }
+
+
+    public function comment_write(){
+        $data['post_id'] = $_POST[idx];
+        $data['cmt_content'] = $_POST[m_text];
+        $data['cmt_username'] = $_POST[m_name];
+        $data['cmt_img'] = $_POST[img];
+        $result = $this->board_model->comment_insert($data);
+        return ajax_result($result);
     }
 }

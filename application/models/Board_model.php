@@ -52,7 +52,6 @@ class Board_model extends CI_Model
             'wrt_datetime'=>date('Y-m-d H:i:s'),
             'category' => $tmp_data['category']
         );
-        print_r($tmp_data);
         $tmp_path = explode('/www', $tmp_data['file_path']);
         $file_path = $tmp_path[1];
         $this->db->insert('board',$data);
@@ -99,5 +98,33 @@ class Board_model extends CI_Model
         $this->db->truncate('board');
     }
 
+
+    function comment_insert($tmp_data)
+    {
+        $data=array(
+            'post_id'=>$tmp_data['post_id'],
+            'cmt_username'=>$tmp_data['cmt_username'],
+            'cmt_img'=>$tmp_data['cmt_img'],
+            'cmt_datetime'=>date('Y-m-d H:i:s'),
+            'cmt_ip'=>$_SERVER['REMOTE_ADDR'],
+            'cmt_content' => $tmp_data['cmt_content']
+        );
+        $this->db->insert('comment',$data);
+        //echo $this->db->last_query();
+
+        $ret['code'] = "success";
+        return $ret;
+    }
+
+    function comment($idx)
+    {
+        $this->db->order_by('cmt_id desc');
+        $this->db->like('post_id', $idx);
+        $this->db->from('comment');
+
+        $result=$this->db->get()->result();
+        //echo $this->db->last_query();
+        return $result;
+    }
 
 }

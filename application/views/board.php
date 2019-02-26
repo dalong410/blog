@@ -28,4 +28,3 @@
     </div>
     <hr>
 </section>
-Leave a Comment:
